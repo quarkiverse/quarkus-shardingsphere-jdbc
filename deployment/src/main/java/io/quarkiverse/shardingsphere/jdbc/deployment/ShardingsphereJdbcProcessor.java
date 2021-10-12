@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import org.apache.shardingsphere.driver.jdbc.core.datasource.ShardingSphereDataSource;
 import org.jboss.jandex.DotName;
 
+import io.quarkiverse.shardingsphere.jdbc.ShardingsphereConfig;
 import io.quarkiverse.shardingsphere.jdbc.ShardingsphereJdbcRecorder;
 import io.quarkus.agroal.spi.JdbcDataSourceBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
@@ -28,9 +29,10 @@ class ShardingsphereJdbcProcessor {
     }
 
     @BuildStep
-    @Record(ExecutionTime.STATIC_INIT)
+    @Record(ExecutionTime.RUNTIME_INIT)
     void generateShardingSphereDataSource(ShardingsphereJdbcRecorder recorder,
             List<JdbcDataSourceBuildItem> dataSourceBuildItems,
+            ShardingsphereConfig config,
             BuildProducer<SyntheticBeanBuildItem> syntheticBeanBuildItemBuildProducer) {
         List<String> dataSources = dataSourceBuildItems
                 .stream().filter(ds -> !ds.isDefault()).map(ds -> ds.getName()).collect(Collectors.toList());
@@ -41,7 +43,7 @@ class ShardingsphereJdbcProcessor {
                 .scope(Singleton.class)
                 .setRuntimeInit()
                 .unremovable()
-                .supplier(recorder.shardingsphereDataSourceSupplier(dataSources));
+                .supplier(recorder.shardingsphereDataSourceSupplier(config, dataSources));
 
         syntheticBeanBuildItemBuildProducer.produce(configurator.done());
     }
