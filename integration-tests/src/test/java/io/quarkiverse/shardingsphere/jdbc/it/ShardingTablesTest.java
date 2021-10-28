@@ -8,11 +8,13 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
+@TestProfile(ShardingTablesProfile.class)
 @QuarkusTestResource(H2DatabaseTestResource.class)
-public class ShardingsphereJdbcResourceTest {
+public class ShardingTablesTest {
 
     @Test
     public void test() {
