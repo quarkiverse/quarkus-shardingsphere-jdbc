@@ -24,7 +24,7 @@ import io.quarkus.runtime.StartupEvent;
 
 @Path("/shardingsphere-jdbc")
 @ApplicationScoped
-public class ShardingsphereJdbcResource {
+public class ShardingTablesResource {
     @Inject
     DataSource dataSource;
 
