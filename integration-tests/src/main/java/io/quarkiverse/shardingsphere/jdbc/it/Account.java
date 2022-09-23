@@ -1,6 +1,18 @@
 package io.quarkiverse.shardingsphere.jdbc.it;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@Entity
+@Table(name = "t_account")
+@ApplicationScoped
+@RegisterForReflection
 public class Account {
+    @Id
     private int account_id;
     private int user_id;
     private String status;

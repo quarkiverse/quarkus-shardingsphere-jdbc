@@ -20,8 +20,7 @@ public class ShardingTablesTest {
                 .body("{\"account_id\":1, \"user_id\":1, \"status\":\"true\"}").contentType(ContentType.JSON)
                 .post("/shardingsphere-jdbc/account")
                 .then()
-                .statusCode(200)
-                .body(is("1"));
+                .statusCode(204);
 
         given().get("/shardingsphere-jdbc/account/ds_0/t_account_0")
                 .then()
