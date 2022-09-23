@@ -1,27 +1,22 @@
 package io.quarkiverse.shardingsphere.jdbc.deployment;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.inject.Singleton;
-
-import org.apache.shardingsphere.driver.jdbc.core.datasource.ShardingSphereDataSource;
-import org.jboss.jandex.DotName;
-
-import io.quarkiverse.shardingsphere.jdbc.ShardingsphereConfig;
-import io.quarkiverse.shardingsphere.jdbc.ShardingsphereJdbcRecorder;
-import io.quarkus.agroal.spi.JdbcDataSourceBuildItem;
-import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
+import io.quarkiverse.shardingsphere.jdbc.ShardingSphereAgroalConnectionConfigurer;
+import io.quarkus.agroal.spi.JdbcDriverBuildItem;
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.processor.BuiltinScope;
+import io.quarkus.datasource.deployment.spi.DefaultDataSourceDbKindBuildItem;
+import io.quarkus.datasource.deployment.spi.DevServicesDatasourceConfigurationHandlerBuildItem;
+import io.quarkus.deployment.Capabilities;
+import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.SslNativeConfigBuildItem;
 
-class ShardingsphereJdbcProcessor {
+public class ShardingsphereJdbcProcessor {
 
     private static final String FEATURE = "shardingsphere-jdbc";
-    private static final DotName DATA_SOURCE = DotName.createSimple(javax.sql.DataSource.class.getName());
+    private static final String SHARDING_SPHERE_DB_KIND = "shardingsphere";
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -29,22 +24,31 @@ class ShardingsphereJdbcProcessor {
     }
 
     @BuildStep
-    @Record(ExecutionTime.RUNTIME_INIT)
-    void generateShardingSphereDataSource(ShardingsphereJdbcRecorder recorder,
-            List<JdbcDataSourceBuildItem> dataSourceBuildItems,
-            ShardingsphereConfig config,
-            BuildProducer<SyntheticBeanBuildItem> syntheticBeanBuildItemBuildProducer) {
-        List<String> dataSources = dataSourceBuildItems
-                .stream().filter(ds -> !ds.isDefault()).map(ds -> ds.getName()).collect(Collectors.toList());
+    void registerDriver(BuildProducer<JdbcDriverBuildItem> jdbcDriver,
+            SslNativeConfigBuildItem sslNativeConfigBuildItem) {
+        jdbcDriver.produce(
+                new JdbcDriverBuildItem(SHARDING_SPHERE_DB_KIND, "org.apache.shardingsphere.driver.ShardingSphereDriver"));
+    }
 
-        SyntheticBeanBuildItem.ExtendedBeanConfigurator configurator = SyntheticBeanBuildItem
-                .configure(ShardingSphereDataSource.class)
-                .addType(DATA_SOURCE)
-                .scope(Singleton.class)
-                .setRuntimeInit()
-                .unremovable()
-                .supplier(recorder.shardingsphereDataSourceSupplier(config, dataSources));
+    @BuildStep
+    void configureAgroalConnection(BuildProducer<AdditionalBeanBuildItem> additionalBeans,
+            Capabilities capabilities) {
+        if (capabilities.isPresent(Capability.AGROAL)) {
+            additionalBeans
+                    .produce(new AdditionalBeanBuildItem.Builder().addBeanClass(ShardingSphereAgroalConnectionConfigurer.class)
+                            .setDefaultScope(BuiltinScope.APPLICATION.getName())
+                            .setUnremovable()
+                            .build());
+        }
+    }
 
-        syntheticBeanBuildItemBuildProducer.produce(configurator.done());
+    @BuildStep
+    DevServicesDatasourceConfigurationHandlerBuildItem devDbHandler() {
+        return DevServicesDatasourceConfigurationHandlerBuildItem.jdbc(SHARDING_SPHERE_DB_KIND);
+    }
+
+    @BuildStep
+    void registerDefaultDbType(BuildProducer<DefaultDataSourceDbKindBuildItem> dbKind) {
+        dbKind.produce(new DefaultDataSourceDbKindBuildItem(SHARDING_SPHERE_DB_KIND));
     }
 }

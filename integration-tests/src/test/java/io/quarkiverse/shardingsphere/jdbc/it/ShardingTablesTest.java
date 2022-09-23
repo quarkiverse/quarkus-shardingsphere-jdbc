@@ -8,11 +8,9 @@ import org.junit.jupiter.api.Test;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
-@TestProfile(ShardingTablesProfile.class)
 @QuarkusTestResource(H2DatabaseTestResource.class)
 public class ShardingTablesTest {
 
@@ -25,12 +23,22 @@ public class ShardingTablesTest {
                 .statusCode(200)
                 .body(is("1"));
 
-        given().get("/shardingsphere-jdbc/account/t_account_0")
+        given().get("/shardingsphere-jdbc/account/ds_0/t_account_0")
                 .then()
                 .statusCode(200)
                 .body(is("0"));
 
-        given().get("/shardingsphere-jdbc/account/t_account_1")
+        given().get("/shardingsphere-jdbc/account/ds_0/t_account_1")
+                .then()
+                .statusCode(200)
+                .body(is("0"));
+
+        given().get("/shardingsphere-jdbc/account/ds_1/t_account_0")
+                .then()
+                .statusCode(200)
+                .body(is("0"));
+
+        given().get("/shardingsphere-jdbc/account/ds_1/t_account_1")
                 .then()
                 .statusCode(200)
                 .body(is("1"));
