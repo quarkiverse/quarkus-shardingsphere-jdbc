@@ -6,10 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
+import javax.enterprise.inject.literal.NamedLiteral;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.sql.DataSource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,8 +20,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.runtime.ShutdownEvent;
-import io.quarkus.runtime.StartupEvent;
+import io.quarkus.arc.Arc;
 
 @Path("/shardingsphere-jdbc")
 @ApplicationScoped
@@ -28,19 +28,19 @@ public class ShardingTablesResource {
     @Inject
     DataSource dataSource;
 
-    @Named("ds")
-    DataSource h2_ds;
-
-    void onStart(@Observes StartupEvent ev) throws Exception {
+    @PostConstruct
+    void onStart() throws Exception {
         createAccountTable();
     }
 
-    void onStop(@Observes ShutdownEvent ev) throws Exception {
+    @PreDestroy
+    void onStop() throws Exception {
         dropAccountTable();
     }
 
     private void createAccountTable() throws SQLException {
         String sql = "CREATE TABLE t_account (account_id BIGINT NOT NULL AUTO_INCREMENT, user_id INT NOT NULL, status VARCHAR(50), PRIMARY KEY (account_id))";
+
         try (Connection connection = dataSource.getConnection();
                 Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
@@ -69,16 +69,20 @@ public class ShardingTablesResource {
             statement.setInt(2, account.getUser_id());
             statement.setString(3, account.getStatus());
             result = statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return result;
     }
 
     @GET
-    @Path("/account/{tbl}")
-    public Integer count(@PathParam("tbl") String table) throws Exception {
+    @Path("/account/{ds}/{tbl}")
+    public Integer count(@PathParam("ds") String ds, @PathParam("tbl") String table) throws Exception {
+        DataSource dataSource = Arc.container().instance(DataSource.class, NamedLiteral.of(ds)).get();
+
         String sql = "SELECT COUNT(*) from " + table;
-        try (Connection connection = h2_ds.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery(sql);
             if (result.next()) {
