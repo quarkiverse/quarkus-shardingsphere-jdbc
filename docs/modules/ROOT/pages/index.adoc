@@ -1,4 +1,4 @@
-= Quarkus - Shardingsphere Jdbc
+= Quarkus - Shardingsphere JDBC
 :extension-status: preview
 
 Describe what the extension does here.
@@ -14,6 +14,49 @@ In your `pom.xml` file, add:
     <groupId>io.quarkiverse.shardingsphere</groupId>
     <artifactId>quarkus-shardingsphere-jdbc</artifactId>
 </dependency>
+----
+
+== Usages
+The shardingsphere datasource could be configured in the `application.properties` file. just like
+[source,properties]
+----
+quarkus.datasource.ds_0.db-kind=h2
+quarkus.datasource.ds_0.username=sa
+quarkus.datasource.ds_0.jdbc.url=jdbc:h2:mem:ds_0
+
+quarkus.datasource.ds_1.db-kind=h2
+quarkus.datasource.ds_1.username=sa
+quarkus.datasource.ds_1.jdbc.url=jdbc:h2:mem:ds_1
+
+quarkus.datasource.db-kind=shardingsphere
+quarkus.datasource.jdbc.url=jdbc:shardingsphere:classpath:config.yaml
+----
+
+And in `config.yaml` file, you can configure the shardingsphere datasource like this:
+[source,yaml]
+----
+dataSources:
+  ds_0:
+    dataSourceClassName: io.quarkiverse.shardingsphere.jdbc.QuarkusDataSource
+    dsName: ds_0
+  ds_1:
+    dataSourceClassName: io.quarkiverse.shardingsphere.jdbc.QuarkusDataSource
+    dsName: ds_1
+----
+
+The more sharding rules configuration, please refer to the shardingsphere official document: https://shardingsphere.apache.org/document/current/en/user-manual/shardingsphere-jdbc/configuration/yaml/
+
+if you want to work with Quarkus Hibernate ORM, please add the following configuration in `application.properties` file to set the `quarkus.hibernate-orm.dialect` explicitly:
+[source,properties]
+----
+quarkus.hibernate-orm.dialect=io.quarkus.hibernate.orm.runtime.dialect.QuarkusH2Dialect
+----
+
+NOTE: The transaction type of backend datasource must be set to `DISABLED` in `application.properties` file, like this:
+[source,properties]
+----
+quarkus.datasource.ds_0.jdbc.transactions=DISABLED
+quarkus.datasource.ds_1.jdbc.transactions=DISABLED
 ----
 
 [[extension-configuration-reference]]
