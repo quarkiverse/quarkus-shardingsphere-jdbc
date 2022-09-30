@@ -1,23 +1,26 @@
-# Quarkus - Shardingsphere Jdbc
+# Quarkus - Shardingsphere JDBC Extension
 
-## Welcome to Quarkiverse!
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![Build](https://github.com/quarkiverse/quarkus-shardingsphere-jdbc/workflows/Build/badge.svg?branch=main)](https://github.com/quarkiverse/quarkus-shardingsphere-jdbc/actions?query=workflow%3ABuild)
+[![License](https://img.shields.io/github/license/quarkiverse/quarkus-shardingsphere-jdbc)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Central](https://img.shields.io/maven-central/v/io.quarkiverse.shardingsphere/quarkus-shardingsphere-jdbc-parent?color=green)](https://search.maven.org/search?q=g:io.quarkiverse.shardingsphere%20AND%20a:quarkus-shardingsphere-jdbc-parent)
 
-Congratulations and thank you for creating a new Quarkus extension project in Quarkiverse!
+This extension provides a new datasource kind for Quarkus, which is based on [ShardingSphere JDBC](https://shardingsphere.apache.org/document/current/en/overview/). For more information about ShardingSphere, please refer to [ShardingSphere official website](https://shardingsphere.apache.org/).
 
-Feel free to replace this content with the proper description of your new project and necessary instructions how to use and contribute to it.
+## Getting Started
+Add the following dependency in your pom.xml to get started,
 
-You can find the basic info, Quarkiverse policies and conventions in [the Quarkiverse wiki](https://github.com/quarkiverse/quarkiverse/wiki).
+```xml
+<dependency>
+    <groupId>io.quarkiverse.shardingsphere</groupId>
+    <artifactId>quarkus-shardingsphere-jdbc</artifactId>
+</dependency>
+```
 
-In case you are creating a Quarkus extension project for the first time, please follow [Building My First Extension](https://quarkus.io/guides/building-my-first-extension) guide.
+## Limitations
+It only supports JVM mode for now. And if you want to work with Quarkus Hibernate ORM, you need to add some configurations to your `application.properties` file. Please check with the [Hibernate ORM guide](https://quarkus.io/guides/hibernate-orm#quarkus-hibernate-orm_quarkus.hibernate-orm.database.generation) and the Quarkus Shardingsphere JDBC documentation.
 
-Other useful articles related to Quarkus extension development can be found under the [Writing Extensions](https://quarkus.io/guides/#writing-extensions) guide category on the [Quarkus.io](http://quarkus.io) website.
+## Contributors ✨
 
-Thanks again, good luck and have fun!
-
-## Documentation
-
-The documentation for this extension should be maintained as part of this repository and it is stored in the `docs/` directory. 
-
-The layout should follow the [Antora's Standard File and Directory Set](https://docs.antora.org/antora/2.3/standard-directories/).
-
-Once the docs are ready to be published, please open a PR including this repository in the [Quarkiverse Docs Antora playbook](https://github.com/quarkiverse/quarkiverse-docs/blob/main/antora-playbook.yml#L7). See an example [here](https://github.com/quarkiverse/quarkiverse-docs/pull/1).
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

@@ -1,9 +1,9 @@
-name: Shardingsphere Jdbc
-#description: Shardingsphere Jdbc ...
+name: "Shardingsphere JDBC Driver"
+description: "The extension provides support for ShardingSphere JDBC."
 metadata:
-#  keywords:
-#    - shardingsphere-jdbc
-#  guide: ...
-#  categories:
-#    - "miscellaneous"
-#  status: "preview"
+  keywords:
+    - shardingsphere-jdbc
+    - jdbc
+  categories:
+    - "data"
+  status: "preview"
