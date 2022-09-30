@@ -1,5 +1,5 @@
 name: quarkus-shardingsphere-jdbc
-title: Quarkus - Shardingsphere JDBC
+title: Quarkus Shardingsphere JDBC
 version: dev
 nav:
   - modules/ROOT/nav.adoc
