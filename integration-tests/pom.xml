@@ -68,6 +68,7 @@
       </plugin>
     </plugins>
   </build>
+  <!--
   <profiles>
     <profile>
       <id>native-image</id>
@@ -109,4 +110,5 @@
       </properties>
     </profile>
   </profiles>
+-->
 </project>
