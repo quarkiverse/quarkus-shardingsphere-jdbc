@@ -29,12 +29,11 @@
       <groupId>io.quarkiverse.shardingsphere</groupId>
       <artifactId>quarkus-shardingsphere-jdbc</artifactId>
       <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.groovy</groupId>
-          <artifactId>groovy</artifactId>
-        </exclusion>
-      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.thoughtworks.xstream</groupId>
+      <artifactId>xstream</artifactId>
+      <version>1.4.19</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -44,6 +43,7 @@
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
+      <version>5.3.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -67,7 +67,6 @@
       </plugin>
     </plugins>
   </build>
-  <!--
   <profiles>
     <profile>
       <id>native-image</id>
@@ -109,5 +108,4 @@
       </properties>
     </profile>
   </profiles>
--->
 </project>

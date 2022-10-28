@@ -1,21 +1,28 @@
 package io.quarkiverse.shardingsphere.jdbc.it;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @Entity
 @Table(name = "t_account")
-@ApplicationScoped
-@RegisterForReflection
+@NamedQuery(name = "findAll", query = "SELECT a FROM Account a ORDER BY account_id")
 public class Account {
     @Id
     private int account_id;
     private int user_id;
     private String status;
+
+    public Account(int account_id, int user_id, String status) {
+        this.account_id = account_id;
+        this.user_id = user_id;
+        this.status = status;
+    }
+
+    public Account() {
+
+    }
 
     public int getAccount_id() {
         return account_id;
@@ -39,5 +46,10 @@ public class Account {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Account [account_id=" + account_id + ", status=" + status + ", user_id=" + user_id + "]";
     }
 }
