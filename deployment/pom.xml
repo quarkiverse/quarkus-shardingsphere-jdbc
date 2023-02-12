@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.quarkiverse.shardingsphere</groupId>
     <artifactId>quarkus-shardingsphere-jdbc-parent</artifactId>
-    <version>999-SNAPSHOT</version>
+    <version>999-SNAPSHOT-1.x</version>
   </parent>
   <artifactId>quarkus-shardingsphere-jdbc-deployment</artifactId>
   <name>Quarkus - Shardingsphere Jdbc - Deployment</name>
