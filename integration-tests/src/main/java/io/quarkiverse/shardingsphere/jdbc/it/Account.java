@@ -1,9 +1,9 @@
 package io.quarkiverse.shardingsphere.jdbc.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 

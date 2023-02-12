@@ -6,8 +6,9 @@ import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
 
-import javax.enterprise.inject.literal.NamedLiteral;
 import javax.sql.DataSource;
+
+import jakarta.enterprise.inject.literal.NamedLiteral;
 
 import org.eclipse.microprofile.config.ConfigProvider;
 
