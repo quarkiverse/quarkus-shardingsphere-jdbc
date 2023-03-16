@@ -22,8 +22,9 @@
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus.version>3.0.0.Alpha5</quarkus.version>
+    <quarkus.version>3.0.0.Alpha6</quarkus.version>
     <antlr.version>4.9.2</antlr.version> <!-- it needs to align with the antlr4-runtime version in shardingsphere -->
+    <snakeyaml.version>1.33</snakeyaml.version> <!-- it needs to align with the snakeyaml version in shardingsphere -->
     <shardingsphere.version>5.3.1</shardingsphere.version>
   </properties>
   <dependencyManagement>
@@ -49,6 +50,11 @@
         <groupId>org.antlr</groupId>
         <artifactId>antlr4-runtime</artifactId>
         <version>${antlr.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${snakeyaml.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
