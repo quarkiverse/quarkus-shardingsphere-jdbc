@@ -15,6 +15,11 @@
     <module>deployment</module>
     <module>runtime</module>
   </modules>
+  <scm>
+    <connection>:git:git@github.com:quarkiverse/quarkus-shardingsphere-jdbc.git</connection>
+    <developerConnection>scm:git:git@github.com:quarkiverse/quarkus-shardingsphere-jdbc.git</developerConnection>
+    <url>https://github.com/quarkiverse/quarkus-shardingsphere-jdbc</url>
+  </scm>
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -23,8 +28,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.version>3.1.0.Final</quarkus.version>
-    <antlr.version>4.10.1</antlr.version> <!-- it needs to align with the antlr4-runtime version in shardingsphere -->
-    <snakeyaml.version>1.33</snakeyaml.version> <!-- it needs to align with the snakeyaml version in shardingsphere -->
+    <antlr.version>4.10.1</antlr.version>
+    <!-- it needs to align with the antlr4-runtime version in shardingsphere -->
+    <snakeyaml.version>1.33</snakeyaml.version>
+    <!-- it needs to align with the snakeyaml version in shardingsphere -->
     <shardingsphere.version>5.3.2</shardingsphere.version>
   </properties>
   <dependencyManagement>
