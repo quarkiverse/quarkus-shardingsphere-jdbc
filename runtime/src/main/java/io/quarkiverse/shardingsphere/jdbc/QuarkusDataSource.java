@@ -6,13 +6,12 @@ import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
 
-import javax.enterprise.inject.literal.NamedLiteral;
 import javax.sql.DataSource;
 
 import org.eclipse.microprofile.config.ConfigProvider;
 
 import io.agroal.api.AgroalDataSource;
-import io.quarkus.arc.Arc;
+import io.quarkus.agroal.runtime.DataSources;
 
 public class QuarkusDataSource implements DataSource {
     private String dsName;
@@ -42,7 +41,7 @@ public class QuarkusDataSource implements DataSource {
 
     private AgroalDataSource getDataSource() {
         if (dataSource == null) {
-            dataSource = Arc.container().instance(AgroalDataSource.class, NamedLiteral.of(dsName)).get();
+            dataSource = DataSources.fromName(dsName);
         }
         return dataSource;
     }

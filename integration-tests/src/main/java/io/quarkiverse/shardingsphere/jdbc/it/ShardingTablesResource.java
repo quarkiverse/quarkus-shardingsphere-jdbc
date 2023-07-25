@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -21,6 +22,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.jboss.logging.Logger;
+
 import io.quarkus.arc.Arc;
 
 @Path("/shardingsphere-jdbc")
@@ -28,8 +31,11 @@ import io.quarkus.arc.Arc;
 public class ShardingTablesResource {
     @Inject
     DataSource dataSource;
+
     @Inject
     EntityManager entityManager;
+
+    private static final Logger LOG = Logger.getLogger(ShardingTablesResource.class);
 
     @PostConstruct
     void onStart() throws Exception {
@@ -64,23 +70,34 @@ public class ShardingTablesResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Transactional
     public void createAccount(Account account) {
+        LOG.debug("create " + account);
         entityManager.persist(account);
     }
 
     @GET
-    @Path("/account/{ds}/{tbl}")
-    public Integer count(@PathParam("ds") String ds, @PathParam("tbl") String table) throws Exception {
-        DataSource dataSource = Arc.container().instance(DataSource.class, NamedLiteral.of(ds)).get();
+    @Path("/account")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Account> getAccount() {
+        return entityManager.createNamedQuery("findAll", Account.class).getResultList();
+    }
 
-        String sql = "SELECT COUNT(*) from " + table;
+    @GET
+    @Path("/account/{ds}/{tbl}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Account count(@PathParam("ds") String ds, @PathParam("tbl") String table) throws Exception {
+        DataSource dataSource = Arc.container().instance(DataSource.class, NamedLiteral.of(ds)).get();
+        Account account = new Account();
+
+        String sql = "SELECT user_id, account_id, status from " + table;
         try (Connection connection = dataSource.getConnection();
                 Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery(sql);
             if (result.next()) {
-                return result.getInt(1);
-            } else {
-                return -1;
+                account.setUser_id(result.getInt(1));
+                account.setAccount_id(result.getInt(2));
+                account.setStatus(result.getString(3));
             }
         }
+        return account;
     }
 }

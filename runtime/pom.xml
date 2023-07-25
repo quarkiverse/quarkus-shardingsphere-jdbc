@@ -18,12 +18,32 @@
       <artifactId>quarkus-agroal</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jaxb</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.shardingsphere</groupId>
       <artifactId>shardingsphere-jdbc-core</artifactId>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>*</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.shardingsphere</groupId>
+          <artifactId>shardingsphere-postgresql-dialect-exception</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.shardingsphere</groupId>
+          <artifactId>shardingsphere-cluster-mode-repository-zookeeper-curator</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.shardingsphere.elasticjob</groupId>
+          <artifactId>elasticjob-registry-center</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -35,7 +55,16 @@
           <groupId>org.slf4j</groupId>
           <artifactId>*</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.graalvm.nativeimage</groupId>
+      <artifactId>svm</artifactId>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>
