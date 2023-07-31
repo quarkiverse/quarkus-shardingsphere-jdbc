@@ -25,6 +25,10 @@
           <groupId>org.slf4j</groupId>
           <artifactId>*</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.apache.shardingsphere</groupId>
+          <artifactId>shardingsphere-infra-expr-espresso</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
