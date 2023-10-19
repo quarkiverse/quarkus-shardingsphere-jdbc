@@ -33,12 +33,12 @@ public class ShardingsphereJdbcRecorder {
                             if (rule.getRuleConfigurationType().isAssignableFrom(ShardingRuleConfiguration.class)) {
                                 ((YamlShardingRuleConfiguration) rule).getTables().forEach((name, table) -> {
                                     final String dataNodes = table.getActualDataNodes();
-                                    InlineExpressionParserFactory.newInstance().splitAndEvaluate(dataNodes);
+                                    InlineExpressionParserFactory.newInstance(dataNodes).splitAndEvaluate();
                                 });
                                 ((YamlShardingRuleConfiguration) rule).getShardingAlgorithms().forEach((name, algorithm) -> {
                                     if (algorithm.getType().equals("INLINE")) {
                                         final String expression = algorithm.getProps().getProperty("algorithm-expression");
-                                        InlineExpressionParserFactory.newInstance().evaluateClosure(expression);
+                                        InlineExpressionParserFactory.newInstance(expression).evaluateClosure();
                                     }
                                 });
                             }

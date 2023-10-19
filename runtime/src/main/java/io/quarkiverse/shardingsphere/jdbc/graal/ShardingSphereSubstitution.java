@@ -16,7 +16,6 @@ import java.util.Objects;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-import org.apache.shardingsphere.driver.jdbc.core.driver.spi.ApolloDriverURLProvider;
 import org.apache.shardingsphere.logging.config.LoggingRuleConfiguration;
 import org.apache.shardingsphere.logging.yaml.swapper.NewYamlLoggingRuleConfigurationSwapper;
 import org.apache.shardingsphere.logging.yaml.swapper.YamlLoggingRuleConfigurationSwapper;
@@ -30,14 +29,6 @@ import com.oracle.svm.core.annotate.TargetClass;
 import io.quarkiverse.shardingsphere.jdbc.JBossLoggingRuleConfigurationBuilder;
 
 final public class ShardingSphereSubstitution {
-}
-
-@TargetClass(ApolloDriverURLProvider.class)
-final class ApolloDriverURLProviderSubstitution {
-    @Substitute
-    public byte[] getContent(final String url) {
-        return new byte[0];
-    }
 }
 
 @TargetClass(YamlLoggingRuleConfigurationSwapper.class)
