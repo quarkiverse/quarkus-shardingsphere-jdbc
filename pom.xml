@@ -24,7 +24,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.version>2.16.12.Final</quarkus.version>
     <antlr.version>4.10.1</antlr.version> <!-- it needs to align with the antlr4-runtime version in shardingsphere -->
-    <shardingsphere.version>5.4.0</shardingsphere.version>
+    <shardingsphere.version>5.4.1</shardingsphere.version>
   </properties>
   <dependencyManagement>
     <dependencies>
