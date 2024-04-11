@@ -20,5 +20,5 @@ updates:
     ignore:
       - dependency-name: "org.apache.maven.plugins:maven-compiler-plugin"
       - dependency-name: "org.antlr:antlr4-runtime"
-      - dependency-name: "io.quarkus:quarkus-bom"
+      - dependency-name: "io.quarkus:*"
         versions: "[3.0,)"
