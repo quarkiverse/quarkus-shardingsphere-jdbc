@@ -19,7 +19,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.shardingsphere</groupId>
-      <artifactId>shardingsphere-jdbc-core</artifactId>
+      <artifactId>shardingsphere-jdbc</artifactId>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
@@ -28,6 +28,10 @@
         <exclusion>
           <groupId>org.apache.shardingsphere</groupId>
           <artifactId>shardingsphere-infra-expr-espresso</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.shardingsphere</groupId>
+          <artifactId>shardingsphere-test-util</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
