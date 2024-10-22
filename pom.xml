@@ -33,7 +33,7 @@
     <!-- it needs to align with the antlr4-runtime version in shardingsphere -->
     <snakeyaml.version>2.2</snakeyaml.version>
     <!-- it needs to align with the snakeyaml version in shardingsphere -->
-    <shardingsphere.version>5.5.0</shardingsphere.version>
+    <shardingsphere.version>5.5.1</shardingsphere.version>
   </properties>
   <dependencyManagement>
     <dependencies>
