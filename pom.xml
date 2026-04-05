@@ -55,6 +55,36 @@
         <version>${shardingsphere.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-infra-url-classpath</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-sharding-core</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-standalone-mode-repository-memory</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-authority-simple</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-parser-sql-engine-sql92</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-parser-sql-engine-mysql</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.antlr</groupId>
         <artifactId>antlr4-runtime</artifactId>
         <version>${antlr.version}</version>
