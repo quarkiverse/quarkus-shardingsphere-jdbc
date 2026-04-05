@@ -33,7 +33,7 @@
     <!-- it needs to align with the antlr4-runtime version in shardingsphere -->
     <snakeyaml.version>2.2</snakeyaml.version>
     <!-- it needs to align with the snakeyaml version in shardingsphere -->
-    <shardingsphere.version>5.5.2</shardingsphere.version>
+    <shardingsphere.version>5.5.3</shardingsphere.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -52,6 +52,36 @@
       <dependency>
         <groupId>org.apache.shardingsphere</groupId>
         <artifactId>shardingsphere-infra-common</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-infra-url-classpath</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-sharding-core</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-standalone-mode-repository-memory</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-authority-simple</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-parser-sql-engine-sql92</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-parser-sql-engine-mysql</artifactId>
         <version>${shardingsphere.version}</version>
       </dependency>
       <dependency>
