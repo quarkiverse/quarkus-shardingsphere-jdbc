@@ -67,6 +67,73 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>routecontract-pilot</id>
+      <activation>
+        <property>
+          <name>routecontractPilot</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <repositories>
+        <repository>
+          <id>routecontract-v0.1.0-local</id>
+          <url>file://${routecontract.repository}</url>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <dependencies>
+        <dependency>
+          <groupId>io.github.ym0506.routecontract</groupId>
+          <artifactId>routecontract-shardingsphere-5.5</artifactId>
+          <version>0.1.0</version>
+          <!--
+            Compile scope is intentional only inside this opt-in profile so the provider is available
+            to the Quarkus application runtime. The sealed run proves discovery and callbacks with
+            this scope; it does not compare test scope or seal the exact discovery time.
+          -->
+          <scope>compile</scope>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>add-routecontract-pilot-test-source</id>
+                <phase>generate-test-sources</phase>
+                <goals>
+                  <goal>add-test-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>src/routeContractPilot/java</source>
+                  </sources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <systemPropertyVariables>
+                <routecontract.projectDir>${project.basedir}</routecontract.projectDir>
+              </systemPropertyVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   <!--
   <profiles>
     <profile>
