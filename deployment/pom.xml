@@ -18,13 +18,17 @@
       <artifactId>quarkus-agroal-deployment</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-devservices-datasource-common</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.quarkiverse.shardingsphere</groupId>
       <artifactId>quarkus-shardingsphere-jdbc</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-junit5-internal</artifactId>
+      <artifactId>quarkus-junit-internal</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
